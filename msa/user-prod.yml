@@ -12,10 +12,10 @@ management:
     info:
       enabled: 'true'
     shutdown:
-      enabled: true #Graceful Shutdown
-#  server:
-#    address: localhost
-#    port: '11000'
+      enabled: true
+  server:
+    address: localhost
+    port: '11001'
 spring:
   jpa:
     generate-ddl: 'false'
@@ -25,7 +25,7 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        default_batch_fetch_size: 100 #Fetch Join
+        default_batch_fetch_size: 100 # Fetch Join
         format_sql: 'true'
         use_sql_comments: 'true'
     show-sql: 'true'
@@ -34,13 +34,9 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     password: '1234'
     username: poly
-    url: jdbc:mariadb://localhost:3306/myDB
+    url: jdbc:mariadb://192.168.117.128:3306/myDB
   application:
     name: USER-SERVICE
-  boot:
-    admin:
-      client: # Spring Boot Actuator Admin UI Server
-        url: http://localhost:15000
 jwt:
   token:
     creator: poly
@@ -62,5 +58,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 server:
   port: '11000'
-api:
-  gateway: localhost:13000

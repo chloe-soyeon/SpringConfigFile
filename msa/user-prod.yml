@@ -1,60 +1,70 @@
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      enabled: 'true'
-      show-details: always
-    beans:
-      enabled: 'true'
-    info:
-      enabled: 'true'
-    shutdown:
-      enabled: true
-  server:
-    address: localhost
-    port: '11001'
+server:
+  port: 11000
+
 spring:
+  application:
+    name: USER-SERVICE
+  datasource:
+    url: jdbc:mariadb://192.168.117.128:3306/myDB
+    username: poly
+    password: '1234'
+    driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    generate-ddl: 'false'
     hibernate:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    open-in-view: false
     properties:
       hibernate:
-        default_batch_fetch_size: 100 # Fetch Join
-        format_sql: 'true'
-        use_sql_comments: 'true'
-    show-sql: 'true'
-    open-in-view: 'false'
-  datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    password: '1234'
-    username: poly
-    url: jdbc:mariadb://192.168.117.128:3306/myDB
-  application:
-    name: USER-SERVICE
+        format_sql: true
+        use_sql_comments: true
+        default_batch_fetch_size: 100
+
+  boot:
+    admin:
+      client:
+        url: http://localhost:15000
+        instance:
+          prefer-ip: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+      enabled: true
+    info:
+      enabled: true
+    beans:
+      enabled: true
+    shutdown:
+      enabled: true
+  server:
+    address: localhost
+    port: 11001
+
 jwt:
   token:
     creator: poly
     refresh:
       valid:
-        time: '3000'
+        time: "3000"
       name: jwtRefreshToken
     access:
       valid:
-        time: '300'
+        time: "300"
       name: jwtAccessToken
   secret:
-    key: '12345678123456781234567812345678123456781234'
-eureka:
-  client:
-    fetch-registry: 'true'
-    register-with-eureka: 'true'
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-server:
-  port: '11000'
+    key: "12345678123456781234567812345678123456781234"
